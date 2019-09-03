@@ -17,18 +17,19 @@ import org.springframework.stereotype.Component;
 public class EkPasswordEncoder implements PasswordEncoder {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
-    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(14);
+    // BCryptPasswordEncoder 参数越大，加密级别越高，加密速度越慢
+    PasswordEncoder passwordEncoder = new BCryptPasswordEncoder(5);
     @Override
     public String encode(CharSequence charSequence) {
-        log.info("charSequence = {}", charSequence);
-        log.info("passwordEncoder.encode = {}", passwordEncoder.encode(charSequence));
+        log.debug("charSequence = {}", charSequence);
+        log.debug("passwordEncoder.encode = {}", passwordEncoder.encode(charSequence));
         return passwordEncoder.encode(charSequence);
     }
 
     @Override
     public boolean matches(CharSequence charSequence, String s) {
-        System.out.println(String.format("charSequence=%s, s=%s", charSequence, s));
-        System.out.println(String.format("passwordEncoder.matches=%s", passwordEncoder.matches(charSequence, s)));
+        log.debug("charSequence=%s, s=%s", charSequence, s);
+        log.debug("passwordEncoder.matches=%s", passwordEncoder.matches(charSequence, s));
         return passwordEncoder.matches(charSequence, s);
     }
 

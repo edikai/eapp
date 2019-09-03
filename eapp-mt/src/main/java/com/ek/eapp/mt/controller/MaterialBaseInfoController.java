@@ -11,9 +11,9 @@
 package com.ek.eapp.mt.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ek.eapp.mt.entity.MaterialBaseInfoEntity;
 import com.ek.eapp.mt.service.MaterialBaseInfoService;
 import com.ek.eapp.util.R;
-import com.platform.entity.MaterialBaseInfoEntity;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -25,11 +25,11 @@
         </if>
     </sql>
 
-    <select id="selectMaterialBaseInfoPage" resultType="com.platform.entity.MaterialBaseInfoEntity">
+    <select id="selectMaterialBaseInfoPage" resultType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
         <include refid="selectSql"/>
     </select>
 
-    <select id="queryAll" resultType="com.platform.entity.MaterialBaseInfoEntity">
+    <select id="queryAll" resultType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
         <include refid="selectSql"/>
     </select>
 </mapper>

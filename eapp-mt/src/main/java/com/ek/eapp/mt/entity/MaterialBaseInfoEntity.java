@@ -8,7 +8,7 @@
  *
  * Copyright (c) 2019-2019 微同科技
  */
-package com.platform.entity;
+package com.ek.eapp.mt.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;

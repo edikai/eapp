@@ -28,8 +28,6 @@ public class EkUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String loginName) throws UsernameNotFoundException {
-//org.apache.ibatis.binding.BindingException: Invalid bound statement (not found): com.ek.eapp.dao.EkUserDao.selectByLoginName
-        log.info("------------------------------{}", loginName);
         EkUserDetails userDetails = null;
         EkUser dbUser = userService.selectByLoginName(loginName);
 

@@ -64,7 +64,7 @@ public abstract class AbstractDruidDBConfig {
     }
 
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource) throws Exception {
-        return sqlSessionFactory(dataSource, "classpath:mapper/*.xml");
+        return sqlSessionFactory(dataSource, "classpath*:mapper/**/*.xml");
     }
 
     public SqlSessionFactory sqlSessionFactory(DataSource dataSource, String mapperLocations) throws Exception {

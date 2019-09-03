@@ -7,6 +7,7 @@ import com.ek.eapp.service.IEkUserService;
 import com.ek.eapp.util.EkRedisUtil;
 import com.ek.eapp.util.R;
 import org.apache.commons.lang3.StringUtils;
+import org.omg.CORBA.DynAnyPackage.Invalid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,38 +44,32 @@ public class LoginController {
     AuthenticationManager authenticationManager;
 
     /**
-     * 查看所有列表
-     *
-     * @param params 查询参数
+     * 获取 accessToken
+     * @param request
      * @return R
      */
     @RequestMapping(value = "/get-token", method = RequestMethod.POST)
     public @ResponseBody
-    R queryAll(@RequestParam Map<String, Object> params, HttpServletRequest request) {
-
-        log.info("--------------------login------------------------------------");
-        Enumeration<String> headers = request.getHeaderNames();
-        while (headers.hasMoreElements()){
-            log.info(headers.nextElement());
-        }
+    R getAccessToken(HttpServletRequest request) {
+        log.info("--------------------get access token------------------------------------");
         String loginName = request.getHeader("login_name");
         String corpId = request.getHeader("corp_id");
-//        String userId = request.getHeader("user_id");
         String password = request.getHeader("password");
 
         if (StringUtils.isEmpty(loginName) || StringUtils.isEmpty(corpId) || StringUtils.isEmpty(password)){
             return R.error(403, "params error, [login_name, corp_id] is necessary.");
         }
-        password = "$2a$14$QMlyAe5rtD8iULUjyAthReGrsNgxa4NsC5FVOe.5e9ALDSNPNza/S";
+//        password = "$2a$14$QMlyAe5rtD8iULUjyAthReGrsNgxa4NsC5FVOe.5e9ALDSNPNza/S";
         // org.springframework.security.authentication.InternalAuthenticationServiceException: Invalid bound statement (not found): com.ek.eapp.dao.EkUserDao.selectByloginName
-//        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginName,password);
-//        //使用SpringSecurity拦截登陆请求 进行认证和授权
-//        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-//        SecurityContextHolder.getContext().setAuthentication(authentication);
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(loginName,password);
+        //使用SpringSecurity拦截登陆请求 进行认证和授权
+        Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
+        SecurityContextHolder.getContext().setAuthentication(authentication);
 
-//        if (!authentication.isAuthenticated()){
-//            return R.error(403, "Authorization error.");
-//        }
+        log.info("authentication.isAuthenticated() = {}", authentication.isAuthenticated());
+        if (!authentication.isAuthenticated()){
+            return R.error(403, "Authorization error.");
+        }
 
         String token = "";
         String key = EkJwtTokenUtil.generateKey(loginName);

@@ -42,7 +42,6 @@ public class EkUserServiceImpl implements IEkUserService {
 
     @Override
     public EkUser selectByLoginName(String loginName) {
-        System.out.println("EkUserServiceImpl.selectByLoginName");
         if (null == loginName || StringUtils.isEmpty(loginName))
             return null;
         return userDao.selectByLoginName(loginName);

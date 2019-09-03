@@ -9,6 +9,7 @@ import com.dingtalk.api.response.OapiUserGetuserinfoResponse;
 import com.ek.eapp.dd.config.URLConstant;
 import com.ek.eapp.dd.util.AccessTokenUtil;
 import com.ek.eapp.dd.util.ServiceResult;
+import com.ek.eapp.util.R;
 import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ public class IndexController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ResponseBody
-    public ServiceResult login(@RequestParam(value = "authCode") String requestAuthCode) {
+    public R login(@RequestParam(value = "authCode") String requestAuthCode) {
         //获取accessToken,注意正是代码要有异常流处理
         String accessToken = AccessTokenUtil.getToken();
 
@@ -64,7 +65,6 @@ public class IndexController {
 
         OapiUserGetResponse userProfile = getUserProfile(accessToken, userId);
         String userName = userProfile.getName();
-        System.out.println(userProfile.getDepartment());
         Long deptId = userProfile.getDepartment().get(0);
         // 审批里的部门id，1和-1要互相转换一下
         if (deptId.longValue() == 1L) {
@@ -75,8 +75,7 @@ public class IndexController {
         resultMap.put("userId", userId);
         resultMap.put("userName", userName);
         resultMap.put("deptId", deptId);
-        ServiceResult serviceResult = ServiceResult.success(resultMap);
-        return serviceResult;
+        return R.ok().put(resultMap);
     }
 
     /**

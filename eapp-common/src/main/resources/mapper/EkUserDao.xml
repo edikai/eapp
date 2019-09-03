@@ -39,7 +39,7 @@
         where id = #{id,jdbcType=INTEGER}
     </delete>
 
-    <insert id="insertSelective" parameterType="com.ek.bean.base.EkUser">
+    <insert id="insertSelective" parameterType="com.ek.eapp.entity.EkUser">
         insert into ek_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="loginName != null">
@@ -88,7 +88,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.ek.bean.base.EkUser">
+    <update id="updateByPrimaryKeySelective" parameterType="com.ek.eapp.entity.EkUser">
         update ek_user
         <set>
             <if test="loginName != null">

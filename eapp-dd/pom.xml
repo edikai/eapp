@@ -12,7 +12,11 @@
     <artifactId>eapp-dd</artifactId>
 
     <dependencies>
-
+        <dependency>
+            <groupId>com.ek</groupId>
+            <artifactId>eapp-common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
         <dependency>
             <groupId>com.taobao.top</groupId>
             <artifactId>top-api-sdk-dev</artifactId>

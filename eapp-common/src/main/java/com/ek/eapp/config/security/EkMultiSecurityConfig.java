@@ -1,6 +1,5 @@
 package com.ek.eapp.config.security;
 
-import com.ek.eapp.config.handler.EkAuthenticationEntryPoint;
 import com.ek.eapp.config.handler.EkAuthenticationFailureHandler;
 import com.ek.eapp.config.handler.EkAuthenticationSuccessHandler;
 import com.ek.eapp.config.handler.EkPasswordEncoder;
@@ -32,19 +31,12 @@ public class EkMultiSecurityConfig {
     @Autowired
     private EkUserDetailsService userDetailsService;
     @Autowired
-    private EkAuthenticationEntryPoint authenticationEntryPoint;
-    @Autowired
     private EkAuthenticationFailureHandler authenticationFailureHandler;
     @Autowired
     private EkAuthenticationSuccessHandler authenticationSuccessHandler;
     @Autowired
     private EkPasswordEncoder passwordEncoder;
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder() {
-//        return passwordEncoder;
-//    }
-
+    
     @Configuration
     @Order(1)
     public class ApiSecurityConfig extends WebSecurityConfigurerAdapter {
@@ -71,9 +63,10 @@ public class EkMultiSecurityConfig {
                     .antMatchers("/api/lost").permitAll()
                     .antMatchers("/api/get-token").permitAll()
                     .anyRequest().authenticated()
-//                .and()
-//////                    .formLogin()
-//////                    .failureHandler(authenticationFailureHandler)
+                .and()
+                    .formLogin()
+//                    .oauth2Login()
+                    .failureHandler(authenticationFailureHandler)
                 .and()
                     .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
@@ -83,51 +76,46 @@ public class EkMultiSecurityConfig {
 
         @Bean(name = BeanIds.AUTHENTICATION_MANAGER)
         @Override
-        public AuthenticationManager authenticationManager() {
-            try {
-                return super.authenticationManager();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return null;
+        public AuthenticationManager authenticationManager() throws Exception {
+            return super.authenticationManager();
         }
     }
 
-//    @Configuration
-//    public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-//
-//        @Override
-//        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//            // 添加自定义认证
-//            auth
-//                    .userDetailsService(userDetailsService)
-//                    .passwordEncoder(passwordEncoder)
-//            ;
-//        }
-//
-//        @Override
-//        protected void configure(HttpSecurity http) throws Exception {
-//            //        http.authorizeRequests().antMatchers("/**").permitAll();
-//            http.csrf().disable()
-////                .and()
-//                    .httpBasic().authenticationEntryPoint(authenticationEntryPoint)
+    @Configuration
+    public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+        @Override
+        protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+            // 添加自定义认证
+            auth
+                    .userDetailsService(userDetailsService)
+                    .passwordEncoder(passwordEncoder)
+            ;
+        }
+
+        @Override
+        protected void configure(HttpSecurity http) throws Exception {
+            //        http.authorizeRequests().antMatchers("/**").permitAll();
+            http.csrf().disable()
 //                .and()
-//                    .authorizeRequests()
-//                    .antMatchers("/", "/index", "/toLogin", "/fail", "/druid/**").permitAll()
-//                    .antMatchers("/resources/**").permitAll()
-//                    .anyRequest().authenticated()
-//                    //            .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
-//                .and()
-//                    .formLogin().loginPage("/index") //指定自己的登录页面
-//                    .loginProcessingUrl("/toLogin")
-//                    .usernameParameter("logName")
-//                    .passwordParameter("password")
-//                    .defaultSuccessUrl("/success", false)
-//                    .failureHandler(authenticationFailureHandler)
-////                .successHandler(authenticationSuccessHandler)
-//                .and()
-//                    .logout()
-//            ;
-//        }
-//    }
+                    .httpBasic().authenticationEntryPoint(authenticationFailureHandler)
+                .and()
+                    .authorizeRequests()
+                    .antMatchers("/", "/index", "/toLogin", "/fail", "/druid/**").permitAll()
+                    .antMatchers("/resources/**").permitAll()
+                    .anyRequest().authenticated()
+                    //            .access("@rbacauthorityservice.hasPermission(request,authentication)") // RBAC 动态 url 认证
+                .and()
+                    .formLogin().loginPage("/index") //指定自己的登录页面
+                    .loginProcessingUrl("/toLogin")
+                    .usernameParameter("logName")
+                    .passwordParameter("password")
+                    .defaultSuccessUrl("/success", false)
+                    .failureHandler(authenticationFailureHandler)
+//                .successHandler(authenticationSuccessHandler)
+                .and()
+                    .logout()
+            ;
+        }
+    }
 }

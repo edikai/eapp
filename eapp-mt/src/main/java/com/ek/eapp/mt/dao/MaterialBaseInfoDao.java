@@ -12,7 +12,7 @@ package com.ek.eapp.mt.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.platform.entity.MaterialBaseInfoEntity;
+import com.ek.eapp.mt.entity.MaterialBaseInfoEntity;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
