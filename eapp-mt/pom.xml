@@ -25,6 +25,11 @@
             <artifactId>eapp-dd</artifactId>
             <version>0.0.1</version>
         </dependency>
+        <dependency>
+            <groupId>com.ek</groupId>
+            <artifactId>eapp-common</artifactId>
+            <version>0.0.1</version>
+        </dependency>
 
         <dependency>
             <groupId>com.baomidou</groupId>

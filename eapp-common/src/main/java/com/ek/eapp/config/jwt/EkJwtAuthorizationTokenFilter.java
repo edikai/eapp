@@ -1,6 +1,8 @@
 package com.ek.eapp.config.jwt;
 
 import com.ek.eapp.config.security.EkUserDetails;
+import com.ek.eapp.entity.EkUser;
+import com.ek.eapp.service.IEkUserService;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +38,8 @@ public class EkJwtAuthorizationTokenFilter extends OncePerRequestFilter {
 
     @Autowired
     private EkJwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private IEkUserService userService;
 
     @Override
     protected void doFilterInternal(
@@ -50,7 +54,12 @@ public class EkJwtAuthorizationTokenFilter extends OncePerRequestFilter {
             String logName = StringUtils.isNoneEmpty(authToken) ? jwtTokenUtil.getUsernameFromToken(authToken) : null;
 
             if (StringUtils.isNotEmpty(logName) && SecurityContextHolder.getContext().getAuthentication() == null){
-                EkUserDetails userDetails = EkUserDetails.ekUserDetails;
+                EkUser user = userService.selectByLoginName(logName);
+                EkUserDetails userDetails = new EkUserDetails();
+                userDetails.setPassword(user.getPassword());
+                userDetails.setLoginName(user.getLoginName());
+                userDetails.setUserName(user.getUsername());
+                userDetails.setUserId(StringUtils.join(user.getId()));
 
                 if (jwtTokenUtil.validateToken(authToken, userDetails)){
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(

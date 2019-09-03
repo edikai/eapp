@@ -1,5 +1,7 @@
 package com.ek.eapp.config.security;
 
+import com.ek.eapp.entity.EkUser;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -17,32 +19,11 @@ import java.util.Set;
 
 public class EkUserDetails implements UserDetails, Serializable {
 
-    public static final String LOGIN_NAME = "admin";
-    public static final String PASSWORD = "itc123";
-    public static final String USER_NAME = "admin";
-    public static final String USER_ID = "1";
-
-    public static EkUserDetails ekUserDetails;
     private String loginName;
     private String password;
     private String userName;
     private String userId;
     private Set<? extends GrantedAuthority> authorities;
-
-    private EkUserDetails() {
-    }
-
-    public static EkUserDetails init(String loginName, String userId) {
-        EkUserDetails user = new EkUserDetails();
-        user.setLoginName(loginName);
-        user.setPassword(userId);
-        user.setUserId(userId);
-        user.setUserName(loginName);
-
-        ekUserDetails = user;
-
-        return user;
-    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -109,5 +90,15 @@ public class EkUserDetails implements UserDetails, Serializable {
 
     public void setAuthorities(Set<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;
+    }
+
+    public static EkUserDetails init(EkUser user) {
+        EkUserDetails userDetails = new EkUserDetails();
+        userDetails.setLoginName(user.getLoginName());
+        userDetails.setPassword(user.getPassword());
+        userDetails.setUserName(user.getLoginName());
+        userDetails.setUserId(StringUtils.join(user.getId()));
+
+        return userDetails;
     }
 }
