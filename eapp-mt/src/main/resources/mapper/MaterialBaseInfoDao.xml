@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ek.eapp.mt.dao.MaterialBaseInfoDao">
+
+    <sql id="selectSql">
+        SELECT
+        T.id,
+        T.MT_TYPE_CODE,
+        T.MT_TYPE_NAME,
+        T.MT_TYPE_MS_UNITS,
+        T.MT_TYPE_PRICE_UNITS,
+        T.DD_CORP_ID,
+        T.DD_DEPT_ID,
+        T.ATTRIBUTE_1,
+        T.ATTRIBUTE_2,
+        T.ATTRIBUTE_3,
+        T.ATTRIBUTE_4,
+        T.CREATE_BY,
+        T.CREATE_DATE
+        FROM dd_material_base_info T
+        WHERE 1=1
+        <if test="params.name != null and params.name.trim() != ''">
+            AND T.NAME LIKE '%${params.name}%'
+        </if>
+    </sql>
+
+    <select id="selectMaterialBaseInfoPage" resultType="com.platform.entity.MaterialBaseInfoEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryAll" resultType="com.platform.entity.MaterialBaseInfoEntity">
+        <include refid="selectSql"/>
+    </select>
+</mapper>
