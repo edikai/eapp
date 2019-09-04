@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.ek.eapp.mt.dao.MaterialWorkOrderDao">
+
+    <sql id="selectSql">
+        SELECT
+        T.ID,
+        T.MT_WO_CODE,
+        T.MT_WO_DESC,
+        T.MT_WO_USER_DATE,
+        T.MT_BASE_ID,
+        T.MT_BASE_AMOUNT,
+        T.MT_WO_TOTAL_PRICE,
+        T.ATTRIBUTE_1,
+        T.ATTRIBUTE_2,
+        T.ATTRIBUTE_3,
+        T.ATTRIBUTE_4,
+        T.CREATE_BY,
+        T.CREATE_DATE
+        FROM dd_material_work_order T
+        WHERE 1=1
+        <if test="params.name != null and params.name.trim() != ''">
+            AND T.NAME LIKE '%${params.name}%'
+        </if>
+    </sql>
+
+    <select id="selectMaterialWorkOrderPage" resultType="com.ek.eapp.mt.entity.MaterialWorkOrderEntity">
+        <include refid="selectSql"/>
+    </select>
+
+    <select id="queryAll" resultType="com.ek.eapp.mt.entity.MaterialWorkOrderEntity">
+        <include refid="selectSql"/>
+    </select>
+</mapper>
