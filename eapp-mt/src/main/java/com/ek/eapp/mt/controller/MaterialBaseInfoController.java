@@ -87,7 +87,7 @@ public class MaterialBaseInfoController {
 
         materialBaseInfoService.add(materialBaseInfo);
 
-        return R.ok();
+        return R.ok().put("msg", "保存成功");
     }
 
     /**

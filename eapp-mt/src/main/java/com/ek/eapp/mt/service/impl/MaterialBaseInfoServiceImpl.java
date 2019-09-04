@@ -15,7 +15,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.ek.eapp.mt.dao.MaterialBaseInfoDao;
 import com.ek.eapp.mt.entity.MaterialBaseInfoEntity;
 import com.ek.eapp.mt.service.MaterialBaseInfoService;
+import com.ek.eapp.util.CodeUtil;
 import com.ek.eapp.util.QueryPlus;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +33,9 @@ import java.util.Map;
  */
 @Service("materialBaseInfoService")
 public class MaterialBaseInfoServiceImpl extends ServiceImpl<MaterialBaseInfoDao, MaterialBaseInfoEntity> implements MaterialBaseInfoService {
+
+    @Autowired
+    private CodeUtil codeUtil;
 
     @Override
     public List<MaterialBaseInfoEntity> queryAll(Map<String, Object> params) {
@@ -48,6 +53,7 @@ public class MaterialBaseInfoServiceImpl extends ServiceImpl<MaterialBaseInfoDao
 
     @Override
     public boolean add(MaterialBaseInfoEntity materialBaseInfo) {
+        materialBaseInfo.setMtTypeCode(codeUtil.generateLong());
         return this.save(materialBaseInfo);
     }
 

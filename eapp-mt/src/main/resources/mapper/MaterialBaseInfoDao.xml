@@ -3,6 +3,20 @@
 
 <mapper namespace="com.ek.eapp.mt.dao.MaterialBaseInfoDao">
 
+    <!--
+    MT_TYPE_CODE	VARCHAR(64)	N	建材种类编码
+    MT_TYPE_NAME	VARCHAR(64)	Y	建材名称
+    MT_TYPE_MS_UNITS	VARCHAR(64)	Y	度量单位
+    MT_TYPE_PRICE_UNITS	DOUBLE	Y	单价
+    DD_CORP_ID	VARCHAR(64)	Y	企业ID
+    DD_DEPT_ID	INT	N	部门ID
+    ATTRIBUTE_1	VARCHAR(255)	N	备用字段
+    ATTRIBUTE_2	VARCHAR(255)	N	备用字段
+    ATTRIBUTE_3	VARCHAR(255)	N	备用字段
+    ATTRIBUTE_4	VARCHAR(255)	N	备用字段
+    CREATE_BY	VARCHAR(255)	N	创建人
+    CREATE_DATE	DATE	N	创建时间
+    -->
     <sql id="selectSql">
         SELECT
         T.id,
@@ -32,4 +46,85 @@
     <select id="queryAll" resultType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
         <include refid="selectSql"/>
     </select>
+
+    <insert id="insert" parameterType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
+        insert into dd_material_base_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mtTypeCode != null">
+                MT_TYPE_CODE,
+            </if>
+            <if test="mtTypeName != null">
+                MT_TYPE_NAME,
+            </if>
+            <if test="mtTypeMsUnits != null">
+                MT_TYPE_MS_UNITS,
+            </if>
+            <if test="mtTypePriceUnits != null">
+                MT_TYPE_PRICE_UNITS,
+            </if>
+            <if test="ddCorpId != null">
+                DD_CORP_ID,
+            </if>
+            <if test="ddDeptId != null">
+                DD_DEPT_ID,
+            </if>
+            <if test="attribute1 != null">
+                ATTRIBUTE_1,
+            </if>
+            <if test="attribute2 != null">
+                ATTRIBUTE_2,
+            </if>
+            <if test="attribute3 != null">
+                ATTRIBUTE_3,
+            </if>
+            <if test="attribute4 != null">
+                ATTRIBUTE_4,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY
+            </if>
+            <if test="createDate != null">
+                create_date
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mtTypeCode != null">
+                #{mtTypeCode,jdbcType=VARCHAR},
+            </if>
+            <if test="mtTypeName != null">
+                #{mtTypeName,jdbcType=VARCHAR},
+            </if>
+            <if test="mtTypeMsUnits != null">
+                #{mtTypeMsUnits,jdbcType=VARCHAR},
+            </if>
+            <if test="mtTypePriceUnits != null">
+                #{mtTypePriceUnits,jdbcType=DOUBLE},
+            </if>
+            <if test="ddCorpId != null">
+                #{ddCorpId,jdbcType=VARCHAR},
+            </if>
+            <if test="ddDeptId != null">
+                #{ddDeptId,jdbcType=INTEGER},
+            </if>
+            <if test="attribute1 != null">
+                #{attribute1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute2 != null">
+                #{attribute2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute3 != null">
+                #{attribute3,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute4 != null">
+                #{attribute4,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
 </mapper>

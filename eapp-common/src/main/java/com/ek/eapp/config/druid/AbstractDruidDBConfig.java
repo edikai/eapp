@@ -4,11 +4,15 @@ import com.alibaba.druid.filter.stat.StatFilter;
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.util.StringUtils;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInterceptor;
+import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
@@ -42,24 +46,24 @@ public abstract class AbstractDruidDBConfig {
         druidDataSource.setUsername(username);
         druidDataSource.setPassword(password);
 
-        System.out.println(druidDbProperties.toString());
+        druidDataSource.setMinIdle(druidDbProperties.getMinIdle());
+        druidDataSource.setMaxActive(druidDbProperties.getMaxActive());
+        druidDataSource.setMaxWait(druidDbProperties.getMaxWait());
+        druidDataSource.setInitialSize(druidDbProperties.getInitialSize());
+        druidDataSource.setTimeBetweenEvictionRunsMillis(druidDbProperties.getTimeBetweenEvictionRunsMillis());
+        druidDataSource.setMinEvictableIdleTimeMillis(druidDbProperties.getMinEvictableIdleTimeMillis());
+        druidDataSource.setValidationQuery(druidDbProperties.getValidationQuery());
+        druidDataSource.setTestWhileIdle(druidDbProperties.isTestWhileIdle());
+        druidDataSource.setTestOnBorrow(druidDbProperties.isTestOnBorrow());
+        druidDataSource.setTestOnReturn(druidDbProperties.isTestOnReturn());
+
         try {
             druidDataSource.setFilters(druidDbProperties.getFilters());
         } catch (SQLException e) {
             log.error("druid configuration initialization filter error.", e);
         }
         druidDataSource.setConnectProperties(druidDbProperties.getConnectionProperties());
-//        druidDataSource.getProxyFilters().stream().filter(f -> f instanceof StatFilter).forEach(f -> {
-//            StatFilter filter = (StatFilter) f;
-//            filter.setLogSlowSql(Boolean.parseBoolean(druidDbProperties.getFilter().get("stat.logSlowSql").toString()));
-//
-//        });
-        druidDataSource.getProxyFilters().stream().filter(f -> f instanceof StatFilter).forEach(f -> {
-            StatFilter filter = (StatFilter) f;
-            System.out.println(filter.isLogSlowSql());
 
-        });
-//        druidDataSource.getProxyFilters().stream().filter(f -> f instanceof StatFilter).forEach(System.out::println);
         return druidDataSource;
     }
 
@@ -82,18 +86,26 @@ public abstract class AbstractDruidDBConfig {
     public SqlSessionFactory createSqlSessionFactory(DataSource dataSource, String mapperLocations) throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dataSource);
-        PageHelper pageHelper = new PageHelper();
+        PageInterceptor pageInterceptor = new PageInterceptor();
         Properties props = new Properties();
-        props.setProperty("dialect", "mysql");
+//        props.setProperty("dialect", "mysql");
         props.setProperty("reasonable", "true");
         props.setProperty("supportMethodsArguments", "true");
         props.setProperty("returnPageInfo", "check");
         props.setProperty("params", "count=countSql");
-        pageHelper.setProperties(props); // 添加插件
-//        sqlSessionFactoryBean.setPlugins(new Interceptor[]{(Interceptor) pageHelper});
+        pageInterceptor.setProperties(props); // 添加插件
+        sqlSessionFactoryBean.setPlugins(new Interceptor[]{pageInterceptor});
 
         sqlSessionFactoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(mapperLocations));
 
+        sqlSessionFactoryBean.setConfiguration(mybatisConfiguration());
+
         return sqlSessionFactoryBean.getObject();
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "mybatis.configuration")
+    public org.apache.ibatis.session.Configuration mybatisConfiguration() {
+        return new org.apache.ibatis.session.Configuration();
     }
 }
