@@ -13,6 +13,9 @@ import java.util.Map;
 public class R extends HashMap<String, Object> {
     private static final long serialVersionUID = 1L;
 
+    public static final int SUCCESS_CODE = 200;
+    public static final int ERROR_CODE = 500;
+
     public R() {
         put("code", 200);
     }

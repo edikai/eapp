@@ -44,4 +44,11 @@ public interface MaterialWorkOrderDao extends BaseMapper<MaterialWorkOrderEntity
      * @return List
      */
     List<MaterialWorkOrderEntity> selectMaterialWorkOrderPage(IPage page, @Param("params") Map<String, Object> params);
+
+    /**
+     * 根据woCode更新
+     * @param materialWorkOrder
+     * @return
+     */
+    int updateByWoCode(MaterialWorkOrderEntity materialWorkOrder);
 }

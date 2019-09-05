@@ -11,9 +11,14 @@
 package com.ek.eapp.mt.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
+import com.ek.eapp.dd.util.ProcessInstanceUtil;
 import com.ek.eapp.mt.entity.MaterialWorkOrderEntity;
 import com.ek.eapp.mt.service.MaterialWorkOrderService;
 import com.ek.eapp.util.R;
+import com.taobao.api.ApiException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +34,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/mt-work-order")
 public class MaterialWorkOrderController {
+
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private MaterialWorkOrderService materialWorkOrderService;
 
@@ -83,6 +91,33 @@ public class MaterialWorkOrderController {
         materialWorkOrderService.add(materialWorkOrder);
 
         return R.ok();
+    }
+
+    /**
+     * 新增 并发起钉钉审批流程
+     *
+     * @param materialWorkOrder materialWorkOrder
+     * @return R
+     */
+    @RequestMapping("/save-and-start")
+    public R saveAndStartProcess(@RequestBody MaterialWorkOrderEntity materialWorkOrder) {
+
+        List<OapiProcessinstanceCreateRequest.FormComponentValueVo> list = materialWorkOrder.generateForms();
+        System.out.println(list.size());
+        list.forEach((valueVo) -> {
+            logger.info("name={}, value={}, extValue={}", valueVo.getName(), valueVo.getValue(), valueVo.getExtValue());
+        });
+
+        R result = null;
+        try {
+            result = materialWorkOrderService.addAndStartProcess(materialWorkOrder);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            result = R.error("发起失败，请重新尝试");
+        }
+
+        return result;
     }
 
     /**

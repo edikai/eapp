@@ -13,6 +13,8 @@ package com.ek.eapp.mt.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.ek.eapp.mt.entity.MaterialWorkOrderEntity;
+import com.ek.eapp.util.R;
+import com.taobao.api.ApiException;
 
 import java.util.List;
 import java.util.Map;
@@ -50,12 +52,28 @@ public interface MaterialWorkOrderService extends IService<MaterialWorkOrderEnti
     boolean add(MaterialWorkOrderEntity materialWorkOrder);
 
     /**
+     * 新增 并发起钉钉审批流程
+     *
+     * @param materialWorkOrder
+     * @return 新增结果
+     */
+    R addAndStartProcess(MaterialWorkOrderEntity materialWorkOrder) throws ApiException, RuntimeException;
+
+    /**
      * 根据主键更新
      *
      * @param materialWorkOrder 
      * @return 更新结果
      */
     boolean update(MaterialWorkOrderEntity materialWorkOrder);
+
+    /**
+     * 根据woCode更新
+     *
+     * @param materialWorkOrder
+     * @return 更新结果
+     */
+    boolean updateByWoCode(MaterialWorkOrderEntity materialWorkOrder);
 
     /**
      * 根据主键删除

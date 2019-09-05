@@ -12,6 +12,7 @@ package com.ek.eapp.mt.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.ek.eapp.dd.model.ProcessInstanceInputVO;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -20,12 +21,12 @@ import java.util.Date;
 /**
  * 实体
  *
- * @author lipengjun
+ * @author qin_hqing
  * @date 2019-09-04 21:21:14
  */
 @Data
 @TableName("dd_material_work_order")
-public class MaterialWorkOrderEntity implements Serializable {
+public class MaterialWorkOrderEntity extends ProcessInstanceInputVO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
@@ -44,7 +45,7 @@ public class MaterialWorkOrderEntity implements Serializable {
     /**
      * 
      */
-    private Date mtWoUserDate;
+    private Date mtWoUseDate;
     /**
      * 
      */
@@ -57,6 +58,18 @@ public class MaterialWorkOrderEntity implements Serializable {
      * 
      */
     private Double mtWoTotalPrice;
+    /**
+     *
+     */
+    private String ddCorpId;
+    /**
+     *
+     */
+    private Long ddDeptId;
+    /**
+     *
+     */
+    private String ddUserId;
     /**
      * 
      */

@@ -8,10 +8,12 @@
         T.ID,
         T.MT_WO_CODE,
         T.MT_WO_DESC,
-        T.MT_WO_USER_DATE,
+        T.MT_WO_USE_DATE,
         T.MT_BASE_ID,
         T.MT_BASE_AMOUNT,
         T.MT_WO_TOTAL_PRICE,
+        T.DD_CORP_ID,
+        T.DD_DEPT_ID,
         T.ATTRIBUTE_1,
         T.ATTRIBUTE_2,
         T.ATTRIBUTE_3,
@@ -32,4 +34,128 @@
     <select id="queryAll" resultType="com.ek.eapp.mt.entity.MaterialWorkOrderEntity">
         <include refid="selectSql"/>
     </select>
+
+    <insert id="insert" parameterType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
+        insert into dd_material_work_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="mtWoCode != null">
+                MT_WO_CODE,
+            </if>
+            <if test="mtWoDesc != null">
+                MT_WO_DESC,
+            </if>
+            <if test="mtWoUseDate != null">
+                MT_WO_USE_DATE,
+            </if>
+            <if test="mtBaseId != null">
+                MT_BASE_ID,
+            </if>
+            <if test="mtBaseAmount != null">
+                MT_BASE_AMOUNT,
+            </if>
+            <if test="mtWoTotalPrice != null">
+                MT_WO_TOTAL_PRICE,
+            </if>
+            <if test="ddCorpId != null">
+                DD_CORP_ID,
+            </if>
+            <if test="ddDeptId != null">
+                DD_DEPT_ID,
+            </if>
+            <if test="ddUserId != null">
+                DD_USER_ID,
+            </if>
+            <if test="attribute1 != null">
+                ATTRIBUTE_1,
+            </if>
+            <if test="attribute2 != null">
+                ATTRIBUTE_2,
+            </if>
+            <if test="attribute3 != null">
+                ATTRIBUTE_3,
+            </if>
+            <if test="attribute4 != null">
+                ATTRIBUTE_4,
+            </if>
+            <if test="createBy != null">
+                CREATE_BY
+            </if>
+            <if test="createDate != null">
+                create_date
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="mtWoCode != null">
+                #{mtWoCode,jdbcType=VARCHAR},
+            </if>
+            <if test="mtWoDesc != null">
+                #{mtWoDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mtWoUseDate != null">
+                #{mtWoUseDate,jdbcType=DATE},
+            </if>
+            <if test="mtBaseId != null">
+                #{mtBaseId,jdbcType=INTEGER},
+            </if>
+            <if test="mtBaseAmount != null">
+                #{mtBaseAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="mtWoTotalPrice != null">
+                #{mtWoTotalPrice,jdbcType=DOUBLE},
+            </if>
+            <if test="ddCorpId != null">
+                #{ddCorpId,jdbcType=VARCHAR},
+            </if>
+            <if test="ddDeptId != null">
+                #{ddDeptId,jdbcType=BIGINT},
+            </if>
+            <if test="ddUserId != null">
+                #{ddUserId,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute1 != null">
+                #{attribute1,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute2 != null">
+                #{attribute2,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute3 != null">
+                #{attribute3,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute4 != null">
+                #{attribute4,jdbcType=VARCHAR},
+            </if>
+            <if test="createBy != null">
+                #{createBy,jdbcType=VARCHAR},
+            </if>
+            <if test="createDate != null">
+                #{createDate,jdbcType=DATE},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByWoCode" parameterType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
+        update dd_material_work_order
+        <set>
+            <if test="mtWoDesc != null">
+                MT_WO_DESC = #{mtWoDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="mtWoUseDate != null">
+                MT_WO_USE_DATE = #{mtWoUseDate,jdbcType=VARCHAR},
+            </if>
+            <if test="mtBaseId != null">
+                MT_BASE_ID = #{mtBaseId,jdbcType=INTEGER},
+            </if>
+            <if test="mtBaseAmount != null">
+                MT_BASE_AMOUNT = #{mtBaseAmount,jdbcType=DOUBLE},
+            </if>
+            <if test="mtWoTotalPrice != null">
+                MT_WO_TOTAL_PRICE = #{mtWoTotalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="attribute1 != null">
+                attribute1 = #{attribute1,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where MT_WO_CODE = #{mtWoCode,jdbcType=VARCHAR}
+    </update>
+
 </mapper>
