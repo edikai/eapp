@@ -82,10 +82,10 @@ public class MaterialWorkOrderServiceImpl extends ServiceImpl<MaterialWorkOrderD
                 TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();  // 如果钉钉审批流程发起失败，则手动回滚事务
                 return result;
             }
-            MaterialWorkOrderEntity entity = new MaterialWorkOrderEntity();
-            entity.setAttribute1(result.get("id").toString());
-            entity.setMtWoCode(materialWorkOrder.getMtWoCode());
-            this.update(entity);
+//            MaterialWorkOrderEntity entity = new MaterialWorkOrderEntity();
+//            entity.setAttribute1(result.get("id").toString());
+//            entity.setMtWoCode(materialWorkOrder.getMtWoCode());
+//            this.updateByWoCode(entity);
         }
 
         return R.ok();
