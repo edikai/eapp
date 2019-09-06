@@ -10,7 +10,7 @@ import com.dingtalk.api.response.OapiWorkrecordAddResponse;
 import com.dingtalk.api.response.OapiWorkrecordGetbyuseridResponse;
 import com.dingtalk.api.response.OapiWorkrecordUpdateResponse;
 import com.ek.eapp.dd.config.Constant;
-import com.ek.eapp.dd.util.AccessTokenUtil;
+import com.ek.eapp.dd.apiutil.AccessTokenUtil;
 import com.ek.eapp.dd.util.LogFormatter;
 import com.ek.eapp.dd.util.LogFormatter.LogEvent;
 import com.ek.eapp.dd.util.ServiceResult;

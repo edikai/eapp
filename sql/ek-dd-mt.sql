@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50727
 File Encoding         : 65001
 
-Date: 2019-09-05 17:41:47
+Date: 2019-09-06 17:51:45
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -64,6 +64,8 @@ CREATE TABLE `dd_material_work_order` (
   `DD_DEPT_ID` bigint(11) DEFAULT NULL,
   `DD_CORP_ID` varchar(64) DEFAULT NULL,
   `DD_USER_ID` varchar(255) DEFAULT NULL,
+  `DD_PROCESS_INSTANCE_ID` varchar(64) DEFAULT NULL,
+  `STATUS` varchar(2) NOT NULL DEFAULT '0',
   `ATTRIBUTE_1` varchar(255) DEFAULT NULL,
   `ATTRIBUTE_2` varchar(255) DEFAULT NULL,
   `ATTRIBUTE_3` varchar(255) DEFAULT NULL,
@@ -71,12 +73,14 @@ CREATE TABLE `dd_material_work_order` (
   `CREATE_BY` varchar(255) DEFAULT NULL,
   `CREATE_DATE` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of dd_material_work_order
 -- ----------------------------
-INSERT INTO `dd_material_work_order` VALUES ('21', '2019090517395616984534581', '工单测试-2', '2019-10-05 00:00:00', '4', '5', '7500.00', '-1', 'dingbcb401623a369ad835c2f4657eb6378f', '011765146230869692', null, null, null, null, '秦汉卿', '2019-09-05 17:39:56');
+INSERT INTO `dd_material_work_order` VALUES ('29', '201909061558151271103301', '测试', '2019-09-06 15:58:57', '2', '50', '400.00', '-1', 'dingbcb401623a369ad835c2f4657eb6378f', '011765146230869692', 'efe32e4e-df0a-4099-9a2b-006f127ef737', '10', null, null, null, null, '秦汉卿', '2019-09-06 15:58:57');
+INSERT INTO `dd_material_work_order` VALUES ('30', '2019090616013816416759342', '钢筋测试2', '2019-10-09 00:00:00', '4', '3', '4500.00', '-1', 'dingbcb401623a369ad835c2f4657eb6378f', '011765146230869692', 'eddd603c-93bf-4545-9648-375a3c5ce88f', '00', null, null, null, null, '秦汉卿', '2019-09-06 16:01:38');
+INSERT INTO `dd_material_work_order` VALUES ('31', '2019090617444811605780031', '沙子测试2', '2019-09-06 17:45:22', '2', '100', '800.00', '-1', 'dingbcb401623a369ad835c2f4657eb6378f', '011765146230869692', '746a81c9-86c6-451f-8bd0-9724ea2e62ff', '10', null, null, null, null, '秦汉卿', '2019-09-06 17:45:22');
 
 -- ----------------------------
 -- Table structure for ek_user

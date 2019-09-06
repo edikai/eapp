@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ek.eapp.dao.EkApprDao">
+
+    <!--
+    ${tableName} 这种方式有SQL注入的风险，后续优化
+    -->
+    <update id="updateStatus" parameterType="java.util.Map">
+        update ${tableName}
+        <set>
+            <if test="statusColumnName != null">
+                ${statusColumnName} = #{statusColumnValue, jdbcType=VARCHAR}
+            </if>
+        </set>
+        where ${matchColumnName} = #{matchColumnValue, jdbcType=VARCHAR}
+    </update>
+
+</mapper>

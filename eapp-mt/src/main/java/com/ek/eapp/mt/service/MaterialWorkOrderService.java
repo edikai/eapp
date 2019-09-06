@@ -90,4 +90,11 @@ public interface MaterialWorkOrderService extends IService<MaterialWorkOrderEnti
      * @return 删除结果
      */
     boolean deleteBatch(Integer[] ids);
+
+    /**
+     * 根据建材按月汇总统计总金额
+     * @param params
+     * @return
+     */
+    List<MaterialWorkOrderEntity> statsListMonth(Map<String, Object> params);
 }

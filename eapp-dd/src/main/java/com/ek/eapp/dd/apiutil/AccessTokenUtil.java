@@ -1,4 +1,4 @@
-package com.ek.eapp.dd.util;
+package com.ek.eapp.dd.apiutil;
 
 import com.ek.eapp.dd.config.Constant;
 import com.dingtalk.api.DefaultDingTalkClient;
@@ -9,7 +9,6 @@ import com.ek.eapp.util.SpringUtil;
 import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import static com.ek.eapp.dd.config.URLConstant.URL_GET_TOKKEN;
 
@@ -29,7 +28,7 @@ public class AccessTokenUtil {
                 return redisUtil.get(DD_API_ACCESS_TOKEN_KEY);
             }
 
-            bizLogger.debug("{} is not initialized, initialize it now.", DD_API_ACCESS_TOKEN_KEY);
+            bizLogger.info("{} is not initialized, initialize it now.", DD_API_ACCESS_TOKEN_KEY);
 
             DefaultDingTalkClient client = new DefaultDingTalkClient(URL_GET_TOKKEN);
             OapiGettokenRequest request = new OapiGettokenRequest();

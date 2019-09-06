@@ -24,7 +24,7 @@ public class EkRedisUtil {
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
-    private final long REDIS_TIME_OUT = 60;
+    private final long REDIS_TIME_OUT = 30 * 60 * 1000; // 超时时间默认30分钟
 
     public boolean containsKey(String key){
         return stringRedisTemplate.hasKey(key);

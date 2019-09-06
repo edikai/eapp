@@ -58,10 +58,11 @@ public class EkMultiSecurityConfig {
             http.csrf().disable().antMatcher("/api/**") //<= Security only available for /api/**
                     .authorizeRequests()
                     .antMatchers("/api/register").permitAll()
-//                    .antMatchers("/api/login").permitAll()
+//                    .antMatchers("/api/login").permitAll()                // 将api/login定义为钉钉的免登接口，需要带着本服务token
                     .antMatchers("/api/public").permitAll()
                     .antMatchers("/api/lost").permitAll()
-                    .antMatchers("/api/get-token").permitAll()
+                    .antMatchers("/api/get-token").permitAll() // 开放获取本服务token接口
+                    .antMatchers("/api/callback").permitAll()  // 开放钉钉回调地址
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()

@@ -1,11 +1,14 @@
 package com.ek.eapp.dd.config;
 
+import lombok.Data;
+
 import java.util.UUID;
 
 /**
  * 项目中的常量定义类
  */
 public class Constant {
+
     /**
      * 企业corpid, 需要修改成开发者所在企业
      */

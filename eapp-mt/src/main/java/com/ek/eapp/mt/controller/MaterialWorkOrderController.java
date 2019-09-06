@@ -12,11 +12,9 @@ package com.ek.eapp.mt.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
-import com.ek.eapp.dd.util.ProcessInstanceUtil;
 import com.ek.eapp.mt.entity.MaterialWorkOrderEntity;
 import com.ek.eapp.mt.service.MaterialWorkOrderService;
 import com.ek.eapp.util.R;
-import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -67,6 +65,26 @@ public class MaterialWorkOrderController {
     }
 
     /**
+     * 按月汇总统计
+     * @param params 查询参数
+     * @return R
+     */
+    @RequestMapping("/stats-list-month")
+    public @ResponseBody R statsListMonth(@RequestParam Map<String, Object> params) {
+        if (!params.containsKey("selectMonth")){
+            return R.error("参数selectMonth不存在.");
+        }
+        if (!params.containsKey("corpId")){
+            return R.error("参数corpId不存在.");
+        }
+        String selectMonth = params.get("selectMonth").toString();
+        params.put("selectMonth", String.format("%s-%s", selectMonth, "01"));
+        List<MaterialWorkOrderEntity> list = materialWorkOrderService.statsListMonth(params);
+
+        return R.ok().put("list", list);
+    }
+
+    /**
      * 根据主键查询详情
      *
      * @param id 主键
@@ -111,7 +129,6 @@ public class MaterialWorkOrderController {
         R result = null;
         try {
             result = materialWorkOrderService.addAndStartProcess(materialWorkOrder);
-
         } catch (Exception e) {
             e.printStackTrace();
             result = R.error("发起失败，请重新尝试");

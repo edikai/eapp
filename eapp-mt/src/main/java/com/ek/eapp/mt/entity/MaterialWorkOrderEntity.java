@@ -50,6 +50,7 @@ public class MaterialWorkOrderEntity extends ProcessInstanceInputVO implements S
      * 
      */
     private Integer mtBaseId;
+    private String mtTypeName; // 按建材汇总前台显示名称
     /**
      * 
      */
@@ -70,6 +71,11 @@ public class MaterialWorkOrderEntity extends ProcessInstanceInputVO implements S
      *
      */
     private String ddUserId;
+
+    private String ddProcessInstanceId;
+    private String status;
+
+    private Double totalPrice; // 汇总统计总金额
     /**
      * 
      */

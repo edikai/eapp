@@ -1,8 +1,9 @@
-package com.ek.eapp.dd.util;
+package com.ek.eapp.dd.apiutil;
 
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
+import com.ek.eapp.dd.apiutil.AccessTokenUtil;
 import com.ek.eapp.dd.config.Constant;
 import com.ek.eapp.dd.config.URLConstant;
 import com.ek.eapp.dd.model.ProcessInstanceInputVO;

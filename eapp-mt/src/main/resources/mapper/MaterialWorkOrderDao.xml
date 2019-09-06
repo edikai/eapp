@@ -14,6 +14,8 @@
         T.MT_WO_TOTAL_PRICE,
         T.DD_CORP_ID,
         T.DD_DEPT_ID,
+        T.DD_PROCESS_INSTANCE_ID,
+        T.STATUS,
         T.ATTRIBUTE_1,
         T.ATTRIBUTE_2,
         T.ATTRIBUTE_3,
@@ -33,6 +35,24 @@
 
     <select id="queryAll" resultType="com.ek.eapp.mt.entity.MaterialWorkOrderEntity">
         <include refid="selectSql"/>
+    </select>
+
+    <select id="statsListMonth" resultType="com.ek.eapp.mt.entity.MaterialWorkOrderEntity">
+        select wo.mt_base_id, mt.mt_type_name, sum(wo.mt_wo_total_price) as total_price
+        from dd_material_work_order wo
+        left join dd_material_base_info mt on wo.mt_base_id = mt.id
+        where 1=1
+        <if test="status != null">
+            and wo.status = #{status, jdbcType=VARCHAR}
+        </if>
+        <if test="corpId != null">
+            and wo.dd_corp_id = #{corpId, jdbcType=VARCHAR}
+        </if>
+        <if test="selectMonth != null">
+            and wo.create_date between DATE_FORMAT(#{selectMonth, jdbcType=VARCHAR}, '%Y-%m-%d')
+            AND ADDDATE(DATE_FORMAT(#{selectMonth, jdbcType=VARCHAR}, '%Y-%m-%d'),INTERVAL 1 MONTH)
+        </if>
+        group by wo.mt_base_id, mt.mt_type_name
     </select>
 
     <insert id="insert" parameterType="com.ek.eapp.mt.entity.MaterialBaseInfoEntity">
@@ -64,6 +84,12 @@
             </if>
             <if test="ddUserId != null">
                 DD_USER_ID,
+            </if>
+            <if test="ddProcessInstanceId != null">
+                DD_PROCESS_INSTANCE_ID,
+            </if>
+            <if test="status != null">
+                STATUS,
             </if>
             <if test="attribute1 != null">
                 ATTRIBUTE_1,
@@ -112,6 +138,12 @@
             <if test="ddUserId != null">
                 #{ddUserId,jdbcType=VARCHAR},
             </if>
+            <if test="ddProcessInstanceId != null">
+                #{ddProcessInstanceId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
             <if test="attribute1 != null">
                 #{attribute1,jdbcType=VARCHAR},
             </if>
@@ -150,6 +182,12 @@
             </if>
             <if test="mtWoTotalPrice != null">
                 MT_WO_TOTAL_PRICE = #{mtWoTotalPrice,jdbcType=VARCHAR},
+            </if>
+            <if test="ddProcessInstanceId != null">
+                DD_PROCESS_INSTANCE_ID = #{ddProcessInstanceId,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=VARCHAR},
             </if>
             <if test="attribute1 != null">
                 attribute1 = #{attribute1,jdbcType=VARCHAR},

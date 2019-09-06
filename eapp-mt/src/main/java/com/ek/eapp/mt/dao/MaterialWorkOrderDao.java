@@ -51,4 +51,11 @@ public interface MaterialWorkOrderDao extends BaseMapper<MaterialWorkOrderEntity
      * @return
      */
     int updateByWoCode(MaterialWorkOrderEntity materialWorkOrder);
+
+    /**
+     * 根据建材按月汇总统计总金额
+     * @param params
+     * @return
+     */
+    List<MaterialWorkOrderEntity> statsListMonth(Map<String, Object> params);
 }

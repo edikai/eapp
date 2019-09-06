@@ -1,4 +1,4 @@
-package com.ek.eapp.dd.util;
+package com.ek.eapp.dd.apiutil;
 
 import com.ek.eapp.dd.config.Constant;
 import com.ek.eapp.dd.config.URLConstant;
@@ -12,9 +12,9 @@ import com.taobao.api.ApiException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-
 /**
- * @author 令久
+ * @TODO 发送钉钉通知消息
+ * @author qin_hqing
  * @date 2018/08/28
  */
 public class MessageUtil {
@@ -39,10 +39,13 @@ public class MessageUtil {
             OapiMessageCorpconversationAsyncsendV2Request.Msg msg = new OapiMessageCorpconversationAsyncsendV2Request.Msg();
             msg.setMsgtype("text");
             msg.setText(new OapiMessageCorpconversationAsyncsendV2Request.Text());
-            msg.getText().setContent("出差申请通过了，快去订机票吧");
+            msg.getText().setContent("您的申请已通过，请悉知.");
             messageRequest.setMsg(msg);
 
             OapiMessageCorpconversationAsyncsendV2Response rsp = client.execute(messageRequest,AccessTokenUtil.getToken());
+            if (rsp.isSuccess()){
+                bizLogger.debug("已发送消息给用户.");
+            }
         } catch (ApiException e) {
             bizLogger.error("send message failed", e);
             throw new RuntimeException();

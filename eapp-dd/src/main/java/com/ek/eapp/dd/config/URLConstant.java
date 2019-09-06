@@ -1,5 +1,9 @@
 package com.ek.eapp.dd.config;
 
+/**
+ * 钉钉接口URL
+ */
+
 public class URLConstant {
     /**
      * 钉钉网关gettoken地址
@@ -32,13 +36,18 @@ public class URLConstant {
     public static final String MESSAGE_ASYNCSEND = "https://oapi.dingtalk.com/topapi/message/corpconversation/asyncsend_v2";
 
     /**
+     * 获取企业回调接口url
+     */
+    public static final String CALLBACK_GET = "https://oapi.dingtalk.com/call_back/get_call_back";
+
+    /**
      * 删除企业回调接口url
      */
-    public static final String DELETE_CALLBACK = "https://oapi.dingtalk.com/call_back/delete_call_back";
+    public static final String CALLBACK_DELETE = "https://oapi.dingtalk.com/call_back/delete_call_back";
 
     /**
      * 注册企业回调接口url
      */
-    public static final String REGISTER_CALLBACK = "https://oapi.dingtalk.com/call_back/register_call_back";
+    public static final String CALLBACK_REGISTER = "https://oapi.dingtalk.com/call_back/register_call_back";
 
 }

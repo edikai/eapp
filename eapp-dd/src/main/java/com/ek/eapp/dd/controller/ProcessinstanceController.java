@@ -10,7 +10,7 @@ import com.dingtalk.api.response.OapiProcessinstanceGetResponse;
 import com.ek.eapp.dd.config.Constant;
 import com.ek.eapp.dd.config.URLConstant;
 import com.ek.eapp.dd.model.ProcessInstanceInputVO;
-import com.ek.eapp.dd.util.AccessTokenUtil;
+import com.ek.eapp.dd.apiutil.AccessTokenUtil;
 import com.ek.eapp.dd.util.LogFormatter;
 import com.ek.eapp.dd.util.LogFormatter.LogEvent;
 import com.ek.eapp.dd.util.ServiceResult;
