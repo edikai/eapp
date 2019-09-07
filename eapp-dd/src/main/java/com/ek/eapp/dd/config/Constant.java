@@ -45,7 +45,8 @@ public class Constant {
     /**
      * 回调host
      */
-    public static final String CALLBACK_URL_HOST = "http://edikai.vaiwan.com";
+//    public static final String CALLBACK_URL_HOST = "http://edikai.vaiwan.com";
+    public static final String CALLBACK_URL_HOST = "http://49.235.132.193";
 
     public static void main(String[] args) {
         String uuid = UUID.randomUUID().toString().replaceAll("-", "").substring(0, 11);
