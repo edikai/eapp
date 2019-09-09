@@ -7,7 +7,7 @@ import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.request.OapiProcessinstanceGetRequest;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
 import com.dingtalk.api.response.OapiProcessinstanceGetResponse;
-import com.ek.eapp.dd.config.Constant;
+import com.ek.eapp.dd.config.DdApprConfig;
 import com.ek.eapp.dd.config.URLConstant;
 import com.ek.eapp.dd.model.ProcessInstanceInputVO;
 import com.ek.eapp.dd.apiutil.AccessTokenUtil;
@@ -45,7 +45,7 @@ public class ProcessinstanceController {
 		try {
 			DefaultDingTalkClient client = new DefaultDingTalkClient(URLConstant.URL_PROCESSINSTANCE_START);
 			OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();
-			request.setProcessCode(Constant.PROCESS_CODE);
+			request.setProcessCode(DdApprConfig.WCMT_PROCESS_CODE);
 
 			request.setFormComponentValues(processInstance.generateForms());
 

@@ -3,8 +3,7 @@ package com.ek.eapp.dd.apiutil;
 import com.dingtalk.api.DefaultDingTalkClient;
 import com.dingtalk.api.request.OapiProcessinstanceCreateRequest;
 import com.dingtalk.api.response.OapiProcessinstanceCreateResponse;
-import com.ek.eapp.dd.apiutil.AccessTokenUtil;
-import com.ek.eapp.dd.config.Constant;
+import com.ek.eapp.dd.config.DdApprConfig;
 import com.ek.eapp.dd.config.URLConstant;
 import com.ek.eapp.dd.model.ProcessInstanceInputVO;
 import com.ek.eapp.util.R;
@@ -34,7 +33,7 @@ public class ProcessInstanceUtil {
     public R startProcessInstance(ProcessInstanceInputVO processInstance) throws ApiException {
         DefaultDingTalkClient client = new DefaultDingTalkClient(URLConstant.URL_PROCESSINSTANCE_START);
         OapiProcessinstanceCreateRequest request = new OapiProcessinstanceCreateRequest();
-        request.setProcessCode(Constant.PROCESS_CODE);
+        request.setProcessCode(DdApprConfig.WCMT_PROCESS_CODE);
 
         request.setFormComponentValues(processInstance.generateForms());
 

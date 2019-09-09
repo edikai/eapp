@@ -81,7 +81,7 @@ public class MaterialWorkOrderController {
         params.put("selectMonth", String.format("%s-%s", selectMonth, "01"));
         List<MaterialWorkOrderEntity> list = materialWorkOrderService.statsListMonth(params);
 
-        return R.ok().put("list", list).put("sum", list.stream().mapToDouble(MaterialWorkOrderEntity::getTotalPrice));
+        return R.ok().put("list", list).put("sum", list.stream().mapToDouble(MaterialWorkOrderEntity::getTotalPrice).sum());
     }
 
     /**

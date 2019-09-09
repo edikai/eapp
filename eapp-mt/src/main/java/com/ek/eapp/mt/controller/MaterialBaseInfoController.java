@@ -11,6 +11,7 @@
 package com.ek.eapp.mt.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.ek.eapp.constant.CrudConst;
 import com.ek.eapp.mt.entity.MaterialBaseInfoEntity;
 import com.ek.eapp.mt.service.MaterialBaseInfoService;
 import com.ek.eapp.util.R;
@@ -110,10 +111,23 @@ public class MaterialBaseInfoController {
      * @param ids ids
      * @return R
      */
-    @RequestMapping("/delete")
+    @RequestMapping("/delete-batch")
     public R delete(@RequestBody Integer[] ids) {
         materialBaseInfoService.deleteBatch(ids);
 
         return R.ok();
+    }
+
+    /**
+     * 根据主键删除
+     *
+     * @param id id
+     * @return R
+     */
+    @RequestMapping("/delete-by-id/{id}")
+    public R deleteById(@PathVariable Integer id) {
+        materialBaseInfoService.delete(id);
+
+        return R.ok(CrudConst.DELETE_SUCCESS);
     }
 }

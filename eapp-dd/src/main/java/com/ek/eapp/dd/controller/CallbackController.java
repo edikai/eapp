@@ -65,7 +65,7 @@ public class CallbackController {
                                         @RequestBody(required = false) JSONObject json) {
         String params = " signature:"+signature + " timestamp:"+timestamp +" nonce:"+nonce+" json:"+json;
         try {
-            DingTalkEncryptor dingTalkEncryptor = new DingTalkEncryptor(Constant.TOKEN, Constant.ENCODING_AES_KEY,
+            DingTalkEncryptor dingTalkEncryptor = new DingTalkEncryptor(Constant.AES_TOKEN, Constant.ENCODING_AES_KEY,
                 Constant.CORP_ID);
 
             //从post请求的body中获取回调信息的加密数据进行解密处理
@@ -138,7 +138,7 @@ public class CallbackController {
         OapiCallBackRegisterCallBackRequest registerRequest = new OapiCallBackRegisterCallBackRequest();
         registerRequest.setUrl(Constant.CALLBACK_URL_HOST + "/api/callback");
         registerRequest.setAesKey(Constant.ENCODING_AES_KEY);
-        registerRequest.setToken(Constant.TOKEN);
+        registerRequest.setToken(Constant.AES_TOKEN);
         registerRequest.setCallBackTag(Arrays.asList("bpms_instance_change", "bpms_task_change"));
         OapiCallBackRegisterCallBackResponse registerResponse = client.execute(registerRequest, accessToken);
         if (registerResponse.isSuccess()) {

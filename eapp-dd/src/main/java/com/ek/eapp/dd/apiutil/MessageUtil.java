@@ -33,7 +33,8 @@ public class MessageUtil {
 
             OapiMessageCorpconversationAsyncsendV2Request messageRequest = new OapiMessageCorpconversationAsyncsendV2Request();
             messageRequest.setUseridList(recieverUserId);
-            messageRequest.setAgentId(Constant.AGENTID);
+//            messageRequest.setAgentId(Constant.AGENT_ID);
+            messageRequest.setAgentId(Constant.AGENT_ID);
             messageRequest.setToAllUser(false);
 
             OapiMessageCorpconversationAsyncsendV2Request.Msg msg = new OapiMessageCorpconversationAsyncsendV2Request.Msg();

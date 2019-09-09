@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * @ClassName: CollbackUtil
@@ -30,7 +29,7 @@ import java.util.List;
 @Data
 public class CallbackUtil {
 
-    @Value("${dd.callback.callable:false}")
+    @Value("${dd.eapp.callback.callable:false}")
     private boolean callable;
 
     private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -74,7 +73,7 @@ public class CallbackUtil {
         OapiCallBackRegisterCallBackRequest registerRequest = new OapiCallBackRegisterCallBackRequest();
         registerRequest.setUrl(Constant.CALLBACK_URL_HOST + "/api/callback");
         registerRequest.setAesKey(Constant.ENCODING_AES_KEY);
-        registerRequest.setToken(Constant.TOKEN);
+        registerRequest.setToken(Constant.AES_TOKEN);
         registerRequest.setCallBackTag(Arrays.asList("bpms_instance_change", "bpms_task_change"));
         OapiCallBackRegisterCallBackResponse registerResponse = client.execute(registerRequest,AccessTokenUtil.getToken());
         if (registerResponse.isSuccess()) {
