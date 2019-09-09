@@ -1,11 +1,13 @@
-package com.ek.eapp.aspect;
+package com.ek.eapp.config.aspect;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -19,7 +21,8 @@ import java.util.Enumeration;
  * @Date: 2019-09-09
  * @Version: V2.0
  **/
-
+@Aspect
+@Component
 public class WebAccessLogAspect {
 
     private static final Logger log = LoggerFactory.getLogger(WebAccessLogAspect.class);

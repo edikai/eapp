@@ -58,6 +58,22 @@
             <onMismatch>DENY</onMismatch>
         </filter>
     </appender>
+    <appender name="debug_file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/debug.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log.path}/debug_%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory> <!-- 只保留最近30天的日志 -->
+            <totalSizeCap>200MB</totalSizeCap> <!-- 日志文件的上限大小, 例如设置为1GB的话，那么到了这个值，就会删除旧的日志。 -->
+        </rollingPolicy>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
 
     <root level="info">
         <appender-ref ref="console"/>
@@ -73,10 +89,14 @@
          用来设置某一个包或者具体的某一个类的日志打印级别、以及指定<appender>
          -->
         <!-- logback为java中的包 -->
-        <logger name="com.ek.dao" level="debug"/> <!-- 打印SQL -->
+        <!--<logger name="com.ek.eapp" level="debug"/> &lt;!&ndash; 打印SQL &ndash;&gt;-->
         <!--logback.LogbackDemo：类的全路径
             没有设置addtivity，默认为true，将此loger的打印信息向上级传递, log会打印两次
         -->
+        <logger name="com.ek.eapp" level="debug" additivity="true">
+            <appender-ref ref="debug_file"/>
+            <!--<appender-ref ref="console"/>-->
+        </logger>
     </springProfile>
 
     <springProfile name="dev">
